@@ -1,0 +1,4 @@
+--- #ex de projeto de automação multi ambiente
+url: http://rocklov.hmg.com
+mongo: mongodb://usuario@senha:200.234.55.77:27017/rocklov
+
