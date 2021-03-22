@@ -1,0 +1,22 @@
+---
+- title: nome obrigatorio
+  payload:
+    name: ''
+    email: joao@yahoo.com
+    password: 'pwd123'
+  code: 412
+  error: required name
+- title: email obrigatorio
+  payload:
+    name: Joao
+    email: ''
+    password: 'pwd123'
+  code: 412
+  error: required email
+- title: senha obrigatorio
+  payload:
+    name: Joao
+    email: joao@yahoo.com
+    password: ''
+  code: 412
+  error: required password
