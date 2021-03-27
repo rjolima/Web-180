@@ -6,12 +6,20 @@ Mongo::Logger.logger = Logger.new("./logs/mongo.log")
 #código criado para deletar usuário cadastrado no BD antes de criar um novo cadastrado
 #ness código não será usuado, pois usuário já foi cadastrado.
 class Mongodb
-  attr_accessor :users, :equipos
+  attr_accessor :client, :users, :equipos
 
   def initialize
-    client = Mongo::Client.new(CONFIG["mongo"])
+    @client = Mongo::Client.new(CONFIG["mongo"])
     @users = client[:users]
     @equipos = client[:equipos]
+  end
+
+  def drop_danger
+    @client.database.drop
+  end
+
+  def insert_users(docs)
+    @users.insert_many(docs)
   end
 
   def remove_user(email)

@@ -20,7 +20,7 @@ class EquiposPage
   end
 
   def upload(file_name)
-    thumb = Dir.pwd + "/features/support/fixtures/imagens/" + file_name
+    thumb = Dir.pwd + "/features/support/fixtures/images/" + file_name
 
     find("#thumbnail input[type=file]", visible: false).set thumb
   end
