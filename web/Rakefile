@@ -1,0 +1,40 @@
+require "digest/md5"
+
+require_relative "features/support/libs/mongo" #importar a class para instânciar o mongoDB
+
+def to_md5(pass)
+  return Digest::MD5.hexdigest(pass)
+end
+
+task :test do
+  puts "Executando uma tarefa de teste"
+end
+
+task :local_seeds do
+  CONFIG = YAML.load_file(File.join(Dir.pwd, "features/support/config/local.yml"))
+
+  users = [
+    { name: "Rodrigo Lima", email: "rodrigo1@gmail.com", password: to_md5("pwd123") },
+    { name: "Rodrigo Oliveira", email: "rodrigo2@gmail.com", password: to_md5("pwd123") },
+    { name: "Anderson Silva", email: "spider@hotmail.com", password: to_md5("pwd123") },
+    { name: "João Anunciante", email: "joao@anunciante.com", password: to_md5("pwd123") },
+    { name: "Maria Locataria", email: "maria@locataria.com", password: to_md5("pwd123") },
+  ]
+
+  Mongodb.new.drop_danger
+  Mongodb.new.insert_users(users)
+
+  sh "cucumber" #executa o cucumber completo
+end
+
+task :hmg_seeds do #seria acesso a homologação
+  CONFIG = YAML.load_file(File.join(Dir.pwd, "features/support/config/hmg.yml"))
+
+  users = [
+    { name: "Rodrigo Lima", email: "rodrigo1@gmail.com", password: to_md5("pwd123") },
+    { name: "Rodrigo Oliveira", email: "rodrigo2@gmail.com", password: to_md5("pwd123") },
+  ]
+
+  Mongodb.new.drop_danger
+  Mongodb.new.insert_users(users)
+end
